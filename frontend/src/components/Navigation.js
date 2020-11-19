@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import { Switch, Route, Link } from 'react-router-dom'
-import Home from '../components/Home'
-import VendorLogin from './vendors/VendorLogin'
+import Home from './Home'
+import VendorLogin from './VendorLogin'
+import VendorRegister from './VendorRegister'
 import recycleLogo from '../images/recycle.svg'
 
 class Navigation extends Component {
@@ -18,14 +19,15 @@ class Navigation extends Component {
                         <Nav className="ml-auto">
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <Nav.Link as={Link} to="/something">Something</Nav.Link>
-                            <Nav.Link as={Link} to="/people/vendor/login">Vendor Login</Nav.Link>
+                            <Nav.Link as={Link} to="/people/vendors/login">For Vendors</Nav.Link>
                         </Nav>
                     </Navbar>
                 </div>
                 <div>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/people/vendor/login" component={VendorLogin}/>
+                        <Route exact path="/people/vendors/login" component={VendorLogin}/>
+                        <Route exact path="/people/vendors/register" component={VendorRegister} />
                         {/* Response when page not found */}
                         <Route render={
                             function() {
