@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Form, Col, Button } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 import "../css/Vendor.css"
 import newAdminLogo from '../images/user-avatar-with-check-mark.svg'
 
@@ -7,22 +8,40 @@ class VendorRegister extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            isSubmitted: false
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
     }
     
     handleSubmit(event) {
         event.preventDefault();
-        console.log(event.target.name.value)
-        console.log(event.target.email.value)
-    }
-
-    handleChange(event) {
-        event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'name': event.target.name.value,
+                'email': event.target.email.value,
+                'password': event.target.password1.value,
+                'address1': event.target.address1.value,
+                'address2': event.target.address2.value,
+                'city': event.target.city.value,
+                'state': event.target.city.state,
+                'zip': event.target.zip.value
+            })
+        }
+        fetch("/api/people/vendors/new-vendor", requestOptions)
+        this.setState({
+            isSubmitted: true
+        })
     }
 
     render() {
+        if (this.state.isSubmitted) {
+            return (<Redirect to="/people/vendors/login"/>)
+        }
         return (
             <div>
                 <Container>

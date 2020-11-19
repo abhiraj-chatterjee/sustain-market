@@ -77,6 +77,17 @@ def getVendors():
         allVendors.append(vendor)
     return jsonify(json.loads(json_util.dumps(allVendors))), 200
 
+@app.route("/api/people/vendors/verify", methods=["POST"])
+def verifyVendors():
+    vendorDetails = request.json
+    query = { 'email' : vendorDetails["email"] }
+    return jsonify(json.loads(json_util.dumps(vendors.find(query)))), 200
+
+@app.route("/api/people/vendors/profile/<id>", methods=["GET"])
+def getProfile(id):
+    query = { "_id" : ObjectId(id) }
+    return jsonify(json.loads(json_util.dumps(vendors.find(query)))), 200
+
 # ======== Products API ========
 
 @app.route("/api/vendor/add-product", methods=["POST"])
